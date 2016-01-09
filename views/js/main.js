@@ -502,26 +502,25 @@ var pre_phase;
 var items ;
 var latestKnownScrollY = 0;
 var ticking = false;
+var recordPosition = {};
 
+
+function updatescroll(){
+  latestKnownScrollY = window.scrollY;
+  requestTick();
+}
 
 function updatePositions() {
   frame++;
   window.performance.mark("mark_start_frame");
 
-  latestKnownScrollY = window.scrollY;
-  requestTick();
   // User Timing API to the rescue again. Seriously, it's worth learning.
   // Super easy to create custom metrics.
-  window.performance.mark("mark_end_frame");
-  window.performance.measure("measure_frame_duration", "mark_start_frame", "mark_end_frame");
-  if (frame % 10 === 0) {
-    var timesToUpdatePosition = window.performance.getEntriesByName("measure_frame_duration");
-    logAverageFrame(timesToUpdatePosition);
-  }
+
 }
 
 // runs updatePositions on scroll
-window.addEventListener('scroll', updatePositions);
+window.addEventListener('scroll', updatescroll);
 
 function requestTick() {
   if (!ticking) {
@@ -531,25 +530,30 @@ function requestTick() {
 }
 
 function animatepizza() {
-  pre_phase = Math.sin((latestKnownScrollY / 1250));
-  items = document.querySelectorAll('.mover');
-  console.log(items);
+  frame++;
+  window.performance.mark("mark_start_frame");
   ticking = false;
+  items = document.querySelectorAll('.mover');
    for (var i = 0; i < items.length; i++) {
-    var phase =  pre_phase + (i % 5);
-    items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
+    items[i].style.left = items[i].basicLeft + 100 * Math.sin((latestKnownScrollY / 1250)) + (i % 5) + 'px';
+  }
+  window.performance.mark("mark_end_frame");
+  window.performance.measure("measure_frame_duration", "mark_start_frame", "mark_end_frame");
+  if (frame % 10 === 0) {
+    var timesToUpdatePosition = window.performance.getEntriesByName("measure_frame_duration");
+    logAverageFrame(timesToUpdatePosition);
   }
 }
 
-
-// runs updatePositions on scroll
-window.addEventListener('scroll', updatePositions);
-
 // Generates the sliding pizzas when the page loads.
 document.addEventListener('DOMContentLoaded', function() {
-  var cols = 8;
   var s = 256;
-  for (var i = 0; i < 200; i++) {
+  var pageHeight = screen.availHeight;
+  var pageWidth = screen.availWidth;
+  var cols = pageWidth/s;     //number of cols in the visible page
+  var rows = pageHeight/s;    //number of rows
+  var numPizza = Math.ceil(cols * rows);     //number of pizzas is visible screen
+  for (var i = 0; i < numPizza; i++) {
     var elem = document.createElement('img');
     elem.className = 'mover';
     elem.src = "images/pizza.png";
