@@ -550,7 +550,7 @@ document.addEventListener('DOMContentLoaded', function() {
   var s = 256;
   var pageHeight = screen.availHeight;
   var pageWidth = screen.availWidth;
-  var cols = pageWidth/s;     //number of cols in the visible page
+  var cols = pageWidth/s;    //number of cols in the visible page
   var rows = pageHeight/s;    //number of rows
   var numPizza = Math.ceil(cols * rows);     //number of pizzas is visible screen
   for (var i = 0; i < numPizza; i++) {
@@ -563,5 +563,5 @@ document.addEventListener('DOMContentLoaded', function() {
     elem.style.top = (Math.floor(i / cols) * s) + 'px';
     document.querySelector("#movingPizzas1").appendChild(elem);
   }
-  updatePositions();
+  animatepizza();
 });
