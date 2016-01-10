@@ -1,0 +1,19 @@
+{
+  "name": "web-perf",
+  "version": "1.0.0",
+  "description": "web-perf project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/reversearrow/web-perf"
+  },
+  "author": "Jay Shah",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/reversearrow/Web-Perf-Opti/issues"
+  },
+  "homepage": "https://github.com/reversearrow/Web-Perf-Opti#readme"
+}
