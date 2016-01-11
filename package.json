@@ -15,5 +15,11 @@
   "bugs": {
     "url": "https://github.com/reversearrow/Web-Perf-Opti/issues"
   },
-  "homepage": "https://github.com/reversearrow/Web-Perf-Opti#readme"
+  "homepage": "https://github.com/reversearrow/Web-Perf-Opti#readme",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-concat": "^0.5.1",
+    "grunt-contrib-htmlmin": "^0.6.0",
+    "load-grunt-tasks": "^3.4.0"
+  }
 }
