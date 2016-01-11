@@ -1,5 +1,5 @@
 module.exports = function(grunt) {
-	grunt.loadNpmTasks('grunt-contrib-htmlmin');
+  require('load-grunt-tasks')(grunt);
 
   grunt.initConfig({
   htmlmin: {                                     // Task
@@ -12,9 +12,22 @@ module.exports = function(grunt) {
         'dist/index.html': 'index.html'    // 'destination': 'source
       }
     },
+  },
+  cssmin: {
+  target: {
+    files: [{
+      expand: true,
+      cwd: 'css',
+      src: ['*.css', '!*.min.css'],
+      dest: 'dist/css',
+      ext: '.min.css'
+    }]
   }
+}
+
 });
 
-grunt.registerTask('default', ['htmlmin'])
+grunt.registerTask('default', ['htmlmin','cssmin']);
 
-}
+};
+
