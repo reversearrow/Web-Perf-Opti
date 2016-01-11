@@ -17,7 +17,7 @@ module.exports = function(grunt) {
   target: {
     files: [{
       expand: true,
-      cwd: 'css',
+      cwd: 'src/css',
       src: ['*.css', '!*.min.css'],
       dest: 'dist/css',
       ext: '.min.css'
@@ -28,7 +28,7 @@ imagemin: {                          // Task
     dynamic: {                         // Another target
       files: [{
         expand: true,                  // Enable dynamic expansion
-        cwd: 'src/',                   // Src matches are relative to this path
+        cwd: 'src/css',                   // Src matches are relative to this path
         src: ['**/*.{png,jpg,gif}'],   // Actual patterns to match
         dest: 'dist/img/'                  // Destination path prefix
       }]
