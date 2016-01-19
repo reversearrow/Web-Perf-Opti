@@ -448,13 +448,25 @@ var resizePizzas = function(size) {
     return dx;
   }
 
-  // Iterates through pizza elements on the page and changes their widths
+  // changing pizza size as only % size matters in this case and fixed forced sync layout
   function changePizzaSizes(size) {
-    var dx = determineDx(document.querySelectorAll(".randomPizzaContainer")[0], size);
-    var offset = document.querySelectorAll(".randomPizzaContainer")[0].offsetWidth;
-    var newwidth = (offset + dx) + 'px'
-    for (var i = 0; i < document.querySelectorAll(".randomPizzaContainer").length; i++) {
-      document.querySelectorAll(".randomPizzaContainer")[i].style.width = newwidth;
+    switch(size) {
+      case "1":
+        newwidth = 25;
+        break;
+      case "2":
+        newwidth = 33.3;
+        break;
+      case "3":
+        newwidth = 50;
+        break;
+      default:
+        console.log("bug in sizeSwitcher")
+    }
+
+    var randomPizzas = document.querySelectorAll(".randomPizzaContainer");
+    for (var i = 0; i < randomPizzas.length; i++) {
+      randomPizzas[i].style.width = newwidth + "%";
     }
   }
 
@@ -505,24 +517,15 @@ var latestKnownScrollY = 0;
 var ticking = false;
 var recordPosition = {};
 
-
+//debouncing the scroll event - only updates scroll and calls requestTick()
 function updatescroll(){
   latestKnownScrollY = window.scrollY;
   requestTick();
 }
 
-function updatePositions() {
-  frame++;
-  window.performance.mark("mark_start_frame");
-
-  // User Timing API to the rescue again. Seriously, it's worth learning.
-  // Super easy to create custom metrics.
-
-}
-
-// runs updatePositions on scroll
 window.addEventListener('scroll', updatescroll);
 
+//Based on the scroll, calls for animatepizza using requestanimationframe only when required
 function requestTick() {
   if (!ticking) {
     requestAnimationFrame(animatepizza);
@@ -530,6 +533,8 @@ function requestTick() {
   ticking = true;
 }
 
+
+//animates the pizzas in background
 function animatepizza() {
   frame++;
   window.performance.mark("mark_start_frame");
@@ -546,14 +551,14 @@ function animatepizza() {
   }
 }
 
-// Generates the sliding pizzas when the page loads.
+//Generates the background sliding pizzas
 document.addEventListener('DOMContentLoaded', function() {
   var s = 256;
-  var pageHeight = screen.availHeight;
-  var pageWidth = screen.availWidth;
-  var cols = pageWidth/s;    //number of cols in the visible page
-  var rows = pageHeight/s;    //number of rows
-  var numPizza = Math.ceil(cols * rows);     //number of pizzas is visible screen
+  var heightofthepage = screen.availHeight; //Height of the visiable page
+  var widthofthepage = screen.availWidth; // Height of the visiable width
+  var cols = widthofthepage/s;
+  var rows = heightofthepage/s;
+  var numPizza = Math.ceil(cols * rows);
   for (var i = 0; i < numPizza; i++) {
     var elem = document.createElement('img');
     elem.className = 'mover';
