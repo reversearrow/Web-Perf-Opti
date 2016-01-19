@@ -551,7 +551,7 @@ function animatepizza() {
   }
 }
 
-//Generates the background sliding pizzas
+//Generates the background sliding pizzas based on the screen-size
 document.addEventListener('DOMContentLoaded', function() {
   var s = 256;
   var heightofthepage = screen.availHeight; //Height of the visiable page
