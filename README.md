@@ -1,6 +1,6 @@
 To access this updated portfolio:
 
-http://reversearrow.github.io/web-perf/views/pizza.html
+http://reversearrow.github.io/web-perf
 
 Optimizations made:
 
